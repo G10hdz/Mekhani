@@ -23,3 +23,16 @@ __pycache__/
 *.swp
 
 MEKHANI_SAAS_SELLING_STRATEGY.md
+
+# AI Agent caches
+graphify-out/
+.claude/
+.qwen/
+.cursor/
+.aider/
+.cocoindex_code/
+*.pyc
+__pycache__/
+.env
+.env.local
+*.log
