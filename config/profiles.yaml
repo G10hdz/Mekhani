@@ -1,0 +1,291 @@
+# Freelancer skill profiles for job matching
+# Each profile defines skills, keywords, and preferences
+
+profiles:
+  default:
+    name: "Default Profile"
+    bio: "Experienced full-stack developer with 5+ years building web applications, APIs, and data pipelines. Specialized in Python, React, and cloud technologies."
+    skills:
+      - Python
+      - JavaScript
+      - React
+      - FastAPI
+      - PostgreSQL
+      - AWS
+      - Docker
+      - DevOps
+    keywords:
+      - web development
+      - API development
+      - full stack
+      - automation
+      - data pipeline
+      - cloud infrastructure
+    min_hourly_rate: 30
+    max_hourly_rate: 150
+    prefer_remote: true
+    excluded_keywords:
+      - casino
+      - gambling
+      - adult
+      - scam
+    max_age_hours: 72  # Jobs older than 72 hours ignored
+
+  gio_cloud_ai:
+    name: "Mayte – Cloud, Automation & AI Engineer"
+    bio: >
+      Cloud & Automation Engineer and AI Engineer with AWS enterprise support
+      experience across 13 storage and data transit services, co-founder of
+      Positronica Labs (AI infrastructure startup) with multiple AI products
+      in production. Strong in Python, AWS, LangGraph multi-agent systems,
+      RAG pipelines, and full-stack AI apps with React + FastAPI.
+
+    skills:
+      # Core stack
+      - Python
+      - AWS
+      - Terraform
+      - Boto3
+      - Docker
+      - Linux
+      - DevOps
+      - CI/CD
+      - GitHub Actions
+
+      # AI / LLM infra
+      - LangChain
+      - LangGraph
+      - RAG
+      - LLM
+      - MLOps
+      - LLMOps
+      - Ollama
+      - Agents
+      - Multi-agent
+      - ChromaDB
+      - Vector Database
+      - Embeddings
+      - Whisper
+      - Kokoro
+      - TTS
+      - STT
+      - Local AI
+      - ROCm
+
+      # Backend
+      - FastAPI
+      - Flask
+      - Django
+      - Playwright
+      - Pandas
+      - SQL
+
+      # Frontend / product
+      - React
+      - TypeScript
+      - JavaScript
+      - Tailwind
+      - Next.js
+      - Vite
+      - shadcn
+      - Gradio
+      - HTML
+      - CSS
+
+      # Cloud infra
+      - Lambda
+      - Serverless
+      - S3
+      - EC2
+      - IAM
+      - CloudFormation
+      - CDK
+      - API Gateway
+      - EventBridge
+      - CloudWatch
+      - SQS
+      - SNS
+      - DataSync
+      - Transfer Family
+      - Storage Gateway
+      - FSx
+      - EFS
+      - EBS
+
+      # Data / ML infra
+      - Machine Learning
+      - Data Pipeline
+      - ETL
+      - Airflow
+      - SageMaker
+      - Bedrock
+      - Hugging Face
+      - Prompt Engineering
+      - OCR
+
+      # Databases
+      - SQLite
+      - PostgreSQL
+      - MySQL
+      - TiDB
+      - Prisma
+      - Redis
+
+      # Languages
+      - English
+      - Spanish
+      - Bilingual
+      - Japanese
+      - Italian
+      - Portuguese
+
+    keywords:
+      # Role / stack
+      - devops
+      - cloud
+      - mlops
+      - llmops
+      - ai engineer
+      - machine learning
+      - data engineer
+      - backend
+      - python
+      - platform
+      - infrastructure
+      - sre
+      - site reliability
+      - automation
+
+      # Tech specifics
+      - langgraph
+      - langchain
+      - rag
+      - llm
+      - agents
+      - chromadb
+      - vector database
+      - embeddings
+      - whisper
+      - tts
+      - stt
+      - local ai
+      - ocr
+      - playwright
+      - gradio
+      - prisma
+      - huggingface
+      - rocm
+      - ollama
+
+    min_hourly_rate: 35
+    max_hourly_rate: 150
+    prefer_remote: true
+
+    excluded_keywords:
+      # Content exclusions
+      - casino
+      - gambling
+      - adult
+      - scam
+
+      # Not your niche / avoid spammy gigs
+      - logo
+      - tiktok followers
+      - instagram growth
+      - homework
+      - essay writing
+
+    max_age_hours: 48
+
+  backend_dev:
+    name: "Backend Developer"
+    bio: "Backend specialist with deep expertise in Python, FastAPI, Django, and distributed systems. Strong in PostgreSQL, Redis, and cloud-native architecture."
+    skills:
+      - Python
+      - FastAPI
+      - Django
+      - PostgreSQL
+      - Redis
+      - Celery
+      - AWS Lambda
+      - Docker
+      - Kubernetes
+    keywords:
+      - backend
+      - API
+      - REST
+      - database
+      - server
+      - microservices
+      - data processing
+    min_hourly_rate: 40
+    max_hourly_rate: 120
+    prefer_remote: true
+    excluded_keywords:
+      - frontend
+      - design
+      - UI/UX
+    max_age_hours: 48
+
+  ai_engineer:
+    name: "AI Engineer"
+    bio: "AI/ML specialist focused on LLM applications, RAG systems, and AI agents. Expert in LangChain, vector databases, and prompt engineering."
+    skills:
+      - Python
+      - LangChain
+      - OpenAI API
+      - Claude API
+      - Vector Databases
+      - Pinecone
+      - Weaviate
+      - Hugging Face
+      - FastAPI
+      - Docker
+    keywords:
+      - LLM
+      - AI
+      - chatbot
+      - RAG
+      - embeddings
+      - vector search
+      - NLP
+      - prompt engineering
+      - AI agent
+      - automation
+    min_hourly_rate: 50
+    max_hourly_rate: 150
+    prefer_remote: true
+    excluded_keywords:
+      - design
+      - logo
+    max_age_hours: 24
+
+  data_engineer:
+    name: "Data Engineer"
+    bio: "Data pipeline expert with experience in ETL, data warehousing, and analytics. Proficient in SQL, Python, Apache Airflow, and cloud data platforms."
+    skills:
+      - Python
+      - SQL
+      - PostgreSQL
+      - BigQuery
+      - Apache Airflow
+      - dbt
+      - ETL
+      - AWS
+      - Docker
+      - Kubernetes
+    keywords:
+      - data pipeline
+      - ETL
+      - data warehouse
+      - analytics
+      - Big Data
+      - data engineering
+    min_hourly_rate: 45
+    max_hourly_rate: 130
+    prefer_remote: true
+    excluded_keywords:
+      - design
+    max_age_hours: 48
+# Default profile to use when no profile specified
+default_profile: "default"

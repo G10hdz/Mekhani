@@ -1,0 +1,25 @@
+# Ignore SaaS strategy docs
+SAAS_ARCHITECTURE_MONETIZATION.md
+
+# Node / JavaScript
+node_modules/
+.dist/
+.next/
+.vite/
+
+# Python
+__pycache__/
+*.pyc
+
+# Env & secrets
+.env
+.env.*
+*.env
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+MEKHANI_SAAS_SELLING_STRATEGY.md

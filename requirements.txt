@@ -1,0 +1,14 @@
+# Mekhani — Multi-platform freelance job automation
+
+# Positronica-Core (shared library)
+# Use local path for development
+-e ../positronica_core
+
+# Platform-specific scrapers
+playwright>=1.40
+beautifulsoup4>=4.12
+apify-client>=1.7
+
+# Development & testing
+pytest>=7.0
+black>=23.0

@@ -1,0 +1,1 @@
+"""Proposal and document generators."""

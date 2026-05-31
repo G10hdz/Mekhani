@@ -1,0 +1,120 @@
+# Mekhani Development Rules
+
+## Project Context
+Mekhani is a multi-platform freelance job automation system. It scrapes job listings from Upwork (MCP), Fiverr (Apify), and Freelancer (API), scores them against a freelancer profile, generates personalized proposals via Claude API, creates Google Docs with diagrams, and notifies via Telegram.
+
+**Stack:** Python 3.11+, positronica_core (shared library), Playwright, Apify, Google Docs API, Claude 3.5 Sonnet, APScheduler, Telegram bot, SQLite
+
+**Shared dependency:** All core logic lives in `../positronica_core/` — import from `positronica_core.*`
+
+---
+
+## Mandatory Rules
+
+### Code Organization
+- Feature branches always, never push directly to `main`
+- Credentials in `.env`, never hardcoded or in version control
+- Dependencies pinned in `requirements.txt`
+- Tests in `tests/` with pytest
+- Logging: stdout + `logs/mekhani.log`, no silent failures
+- `load_dotenv()` must be the FIRST thing in `main.py`
+
+### Configuration
+- Use `.env` for all secrets: API keys, tokens, chat IDs
+- Run `varlock` before any push near credentials
+- Copy `.env.example` for local setup
+- Support `--dry-run` flag to prevent real applications/notifications
+
+### Scrapers
+- Inherit from `BaseScraper` in `scrapers/base.py`
+- Each scraper: `scrapers/upwork.py`, `scrapers/fiverr.py`, `scrapers/freelancer.py`
+- All return standardized `Job` model from `positronica_core.db`
+- Handle rate limits, pagination, and session expiry gracefully
+- Test connections with `python main.py --test-{platform}`
+
+### Proposal & Docs Generation
+- Use `positronica_core.llm.ClaudeClient` for all Claude API calls
+- 35-word preview + full proposal format for each job
+- Google Docs integration: `positronica_core.notifiers.GoogleDocsClient`
+- Include Mermaid diagrams in generated docs
+
+### Notifications
+- Use `positronica_core.notifiers.TelegramNotifier` for all Telegram messages
+- Support multiple profiles — each gets separate notifications
+- Respect `--dry-run` flag for preview-only mode
+
+### Scheduler
+- APScheduler runs at `MEKHANI_SCHEDULE_HOURS` (default: 9am + 6pm)
+- Systemd service file: `mekhani.service` for auto-start on boot
+- Graceful shutdown: allow active jobs to complete
+
+---
+
+## File Structure
+```
+Mekhani/
+├── main.py                        # CLI entry: --once, --stats, --test-{platform}, --dry-run
+├── scheduler.py                   # APScheduler orchestration
+├── config/
+│   ├── profiles.yaml              # Freelancer skill profiles
+│   └── platforms.yaml             # Per-platform API config
+├── scrapers/
+│   ├── base.py                    # Abstract BaseScraper
+│   ├── upwork.py                  # Upwork MCP integration
+│   ├── fiverr.py                  # Apify actor wrapper
+│   └── freelancer.py              # Freelancer.com REST API
+├── generators/
+│   ├── proposal.py                # Claude: 35-word preview + full proposal
+│   └── docs.py                    # Google Doc creation + Mermaid
+├── pipelines/
+│   ├── score_and_filter.py        # Multi-profile scoring
+│   └── apply_and_notify.py        # Apply + Doc + Telegram
+├── tests/
+│   ├── test_scrapers.py
+│   └── test_generators.py
+├── logs/
+│   └── mekhani.log
+└── .env                           # Local secrets (never commit)
+```
+
+---
+
+## Error Handling
+When implementing features:
+- Catch and log all exceptions; never fail silently
+- Upwork MCP session expired? → Run `uv run upwork-mcp --login` in `/home/gio/Tools/upwork-mcp`
+- Google Docs token expired? → Delete `~/.mekhani/token.json` to trigger re-auth
+- Apify quota exceeded? → Check plan at apify.com
+- Claude API error? → Check `ANTHROPIC_API_KEY` and account credits
+- Telegram flood wait? → Bot auto-retries (check `logs/mekhani.log`)
+
+---
+
+## Testing & QA
+- Run tests before any commit: `pytest tests/`
+- Test platform connections: `python main.py --test-upwork` (etc.)
+- Always use `--dry-run` for end-to-end testing without side effects
+- Check logs for errors: `tail -f logs/mekhani.log`
+
+---
+
+## Commits
+Use Sentry conventional format:
+- `feat: add Upwork scraper with MCP integration`
+- `fix: handle Apify rate limiting gracefully`
+- `refactor: extract Job model validation to shared library`
+- `docs: update setup guide for Google Docs OAuth`
+
+---
+
+## Integration with positronica_core
+Always import from the shared library:
+```python
+from positronica_core.db import Job, init_db, bulk_insert_jobs
+from positronica_core.config import settings
+from positronica_core.filters import match_cv, score_job
+from positronica_core.llm import ClaudeClient
+from positronica_core.notifiers import TelegramNotifier, GoogleDocsClient
+```
+
+If positronica_core changes break Mekhani, check the core changelog and update imports immediately.

@@ -1,0 +1,122 @@
+# Platform-specific configuration
+# API credentials, search parameters, and rate limits
+
+platforms:
+  upwork:
+    enabled: true
+    mcp_path: "/home/gio/Tools/upwork-mcp"
+    # MCP command format (filled at runtime)
+    # uv run upwork-mcp search --query "..." --limit N
+    search_params:
+      max_results: 50
+      # Job categories relevant to tech work
+      categories:
+        - "Web Development"
+        - "Software Development"
+        - "Data Science & Analytics"
+        - "DevOps & Engineering"
+      # Experience levels: entry, intermediate, expert
+      experience_levels:
+        - "intermediate"
+        - "expert"
+    rate_limit:
+      requests_per_hour: 60
+      cooldown_seconds: 5
+    # Search query templates
+    query_templates:
+      - "Python developer"
+      - "FastAPI developer"
+      - "API developer"
+      - "full stack developer"
+      - "AI engineer"
+      - "data engineer"
+      - "AWS developer"
+      - "React developer"
+    # Additional filters
+    filters:
+      client_rating_min: 4.5
+      job_success_min: 80
+      client_hires_min: 10
+
+  fiverr:
+    enabled: true
+    apify_actor: "automation-lab/fiverr-scraper"
+    # Apify default input for job search
+    search_params:
+      max_results: 30
+      # Fiverr categories
+      category: "web-development"
+      subcategories:
+        - "web-programming"
+        - "website-builders-cms"
+        - "wordpress"
+        - "web-design"
+      # Search keywords
+      keywords:
+        - "API development"
+        - "Python automation"
+        - "web scraper"
+        - "data pipeline"
+        - "AI integration"
+    rate_limit:
+      requests_per_hour: 30
+      cooldown_seconds: 10
+    # Budget range (USD)
+    budget:
+      min: 100
+      max: 5000
+
+  freelancer:
+    enabled: true
+    api_base: "https://api.freelancer.com"
+    # OAuth token set via FREELANCER_OAUTH_TOKEN env var
+    search_params:
+      max_results: 50
+      # Project types
+      project_types:
+        - "fixed"
+        - "hourly"
+      # Job categories
+      categories:
+        - "Programming & IT"
+        - "Web Development"
+        - "Software Development"
+        - "Data Science"
+      # Sort options: relevance, newest, budget_low, budget_high
+      sort_by: "newest"
+    rate_limit:
+      requests_per_hour: 30
+      cooldown_seconds: 10
+    # Search query templates
+    query_templates:
+      - "Python"
+      - "FastAPI"
+      - "API development"
+      - "full stack"
+      - "AI"
+      - "machine learning"
+      - "data engineer"
+      - "React"
+    filters:
+      # Budget range for fixed projects (USD)
+      budget_min: 100
+      budget_max: 5000
+      # Hourly rate range for hourly projects (USD)
+      hourly_min: 20
+      hourly_max: 150
+      # Client properties
+      client_rating_min: 4.0
+      # Only English jobs
+      language: "en"
+
+# Global settings
+global:
+  # Maximum concurrent scrapers
+  max_concurrent_scrapers: 3
+  # Job freshness threshold (hours)
+  max_job_age_hours: 72
+  # Retry configuration
+  max_retries: 3
+  retry_delay_seconds: 30
+  # Database path
+  db_path: "./mekhani.db"
